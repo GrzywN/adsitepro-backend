@@ -20,7 +20,7 @@ class TaskCategoryController extends Controller
     {
         return response()->json([
             'message' => __('Task category created successfully'),
-            'data' => $request->all(),
+            'data' => $this->service->store($request->validated()),
         ]);
     }
 

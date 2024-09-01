@@ -14,7 +14,7 @@ class TaskCategoryService
         return new TaskCategoryCollection(TaskCategory::all());
     }
 
-    public function store(array $data): TaskCategory
+    public function store(array $data): JsonResource
     {
         $newTaskCategory = TaskCategory::factory()->create($data);
 
@@ -26,7 +26,7 @@ class TaskCategoryService
         return TaskCategoryResource::make($taskCategory);
     }
 
-    public function update(array $data, TaskCategory $currentTaskCategory): TaskCategoryResource
+    public function update(array $data, TaskCategory $currentTaskCategory): JsonResource
     {
         $updatedTask = $currentTaskCategory->update($data);
 
