@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use App\Models\User;
-use App\Rules\TaskUserCapacityRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreTaskRequest extends FormRequest
@@ -62,7 +61,7 @@ class StoreTaskRequest extends FormRequest
             $assignedUser = User::findOrFail($assignedUserId);
             $isCapable = $assignedUser->isCapableForTaskAssignment($estimatedMinutes);
 
-            if (!$isCapable) {
+            if (! $isCapable) {
                 $validator->errors()->add('estimated_minutes', 'User capacity exceeded. Maximum minutes per month: '.User::MAX_MONTHLY_CAPACITY_IN_MINUTES);
             }
         });

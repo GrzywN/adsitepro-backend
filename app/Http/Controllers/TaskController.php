@@ -37,6 +37,14 @@ class TaskController extends Controller
         ]);
     }
 
+    public function complete(Task $task)
+    {
+        return response()->json([
+            'message' => __('Task completed successfully'),
+            'data' => $this->service->complete($task),
+        ]);
+    }
+
     public function destroy(Task $task)
     {
         return response()->json([

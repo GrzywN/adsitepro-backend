@@ -11,7 +11,7 @@ class TaskService
 {
     public function index(): TaskCollection
     {
-        return new TaskCollection(Task::all());
+        return new TaskCollection(Task::orderBy('completed_at', 'asc')->get());
     }
 
     public function store(array $data): JsonResource
@@ -29,6 +29,13 @@ class TaskService
     public function update(array $data, Task $currentTask): JsonResource
     {
         $updatedTask = $currentTask->update($data);
+
+        return TaskResource::make($updatedTask);
+    }
+
+    public function complete(Task $currentTask): JsonResource
+    {
+        $updatedTask = $currentTask->markAsCompleted();
 
         return TaskResource::make($updatedTask);
     }

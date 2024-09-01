@@ -26,11 +26,12 @@ class Task extends Model
         'completed_at' => 'datetime',
     ];
 
-    public static function isUserCapable(User $user): bool
+    public function markAsCompleted(): self
     {
-        return Task::where('assigned_user_id', $user->id)
-            ->whereDate('assigned_at', '>=', now()->startOfMonth())
-            ->sum('minutes') + $user->tasks()->sum('minutes') <= self::MAX_MINUTES;
+        $this->completed_at = now();
+        $this->save();
+
+        return $this;
     }
 
     public function category(): BelongsTo
