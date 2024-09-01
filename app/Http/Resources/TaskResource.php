@@ -16,7 +16,7 @@ class TaskResource extends JsonResource
             'category' => TaskCategoryResource::make($this->category),
             'owner' => UserResource::make($this->owner),
             'assigned_user' => UserResource::make($this->assignedUser),
-            'due_date' => $this->due_date,
+            'estimated_minutes' => $this->estimated_minutes,
             'completed_at' => $this->completed_at,
         ];
     }

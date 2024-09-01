@@ -26,10 +26,9 @@ class TaskFactory extends Factory
             'category_id' => TaskCategory::factory(),
             'owner_id' => User::factory(),
             'assigned_user_id' => User::factory(),
-            'due_date' => fake()->dateTimeBetween('now', '+1 year'),
-            'completed_at' => fake()->boolean(self::PROBABILITY_OF_COMPLETION_IN_PERCENTS)
-                                ? fake()->dateTimeBetween('-1 year', 'now')
-                                : null,
+            'estimated_minutes' => fake()->numberBetween(1, User::MAX_MONTHLY_CAPACITY_IN_MINUTES),
+            'assigned_at' => now(),
+            'completed_at' => null,
         ];
     }
 }

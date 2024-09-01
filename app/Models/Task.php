@@ -16,14 +16,22 @@ class Task extends Model
         'category_id',
         'owner_id',
         'assigned_user_id',
-        'due_date',
+        'estimated_minutes',
+        'assigned_at',
         'completed_at',
     ];
 
     protected $casts = [
-        'due_date' => 'datetime',
+        'assigned_at' => 'datetime',
         'completed_at' => 'datetime',
     ];
+
+    public static function isUserCapable(User $user): bool
+    {
+        return Task::where('assigned_user_id', $user->id)
+            ->whereDate('assigned_at', '>=', now()->startOfMonth())
+            ->sum('minutes') + $user->tasks()->sum('minutes') <= self::MAX_MINUTES;
+    }
 
     public function category(): BelongsTo
     {

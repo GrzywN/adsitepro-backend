@@ -18,7 +18,8 @@ return new class extends Migration
             $table->foreignId('category_id')->nullable();
             $table->foreignId('owner_id');
             $table->foreignId('assigned_user_id')->nullable();
-            $table->dateTime('due_date')->nullable();
+            $table->integer('estimated_minutes');
+            $table->timestamp('assigned_at')->nullable();
             $table->dateTime('completed_at')->nullable();
             $table->timestamps();
         });
